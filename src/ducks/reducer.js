@@ -1,7 +1,6 @@
 const initalState = {
   username: "",
-  profileImg: "",
-  userId: 1
+  profile_pic: ""
 };
 
 const SET_USER = "SET_USER";
@@ -17,8 +16,8 @@ export default (state = initalState, action) => {
 
   switch (type) {
     case SET_USER:
-      const { username, profileImg, userId } = payload;
-      return { ...state, username, profileImg, userId };
+      const { username, profile_pic } = payload;
+      return { ...state, username, profile_pic};
     default:
       return state;
   }

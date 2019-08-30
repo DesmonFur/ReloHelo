@@ -26,6 +26,7 @@ app.get('/api/posts/:userid', ctrl.getUserPosts)
 app.get('/api/post/:postid', ctrl.getOnePost)
 app.post('/api/post/:userid', ctrl.post)
 app.post('/api/auth/logout', ctrl.logout)
+app.get('/api/auth/me', ctrl.getSession)
 
 
 massive(CONNECTION_STRING).then(db => {

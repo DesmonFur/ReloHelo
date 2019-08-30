@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 export class Dashboard extends Component {
   constructor() {
     super();
@@ -21,19 +20,21 @@ export class Dashboard extends Component {
     const { search } = this.state;
     const { userId } = this.props;
     // console.log(this.props.userId)
-    axios.get(`/api/posts/${userId}?title=${search}&myPosts=${!this.state.myPosts}`).then(res => {
-      this.setState({
-        posts: res.data
+    axios
+      .get(`/api/posts/:userid?title=${search}&myPosts=${!this.state.myPosts}`)
+      .then(res => {
+        this.setState({
+          posts: res.data
+        });
+        console.log(res.data);
       });
-      console.log(res.data)
-    });
   };
 
-  flipPost = () =>{
-      this.setState({
-          myPosts: !this.state.myPosts
-      })
-  }
+  flipPost = () => {
+    this.setState({
+      myPosts: !this.state.myPosts
+    });
+  };
 
   handleChange = e => {
     this.setState({
@@ -51,13 +52,12 @@ export class Dashboard extends Component {
   render() {
     let mapped = this.state.posts.map(post => {
       return (
-          <Flex key={post.id}>
-              <Link to={`/post/${post.id}`}>
-          <Title>{post.title}</Title>
-          <Content>{post.content}</Content>
-          <User>{post.username}</User>
-          <img src={post.profile_pic} alt="profile" />
-
+        <Flex key={post.id}>
+          <Link to={`/post/${post.id}`}>
+            <Title>{post.title}</Title>
+            <Content>{post.content}</Content>
+            <User>{post.username}</User>
+            <img src={post.profile_pic} alt="profile" />
           </Link>
         </Flex>
       );
@@ -90,9 +90,4 @@ const User = styled.h2`
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 `;
 
-function mapStateToProps(reduxState){
-    const {userId} = reduxState
-    return {userId}
-}
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;
